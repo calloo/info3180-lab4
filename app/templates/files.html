@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    {% for file in static_files %}
-        <img src="{{ url_for('static', filename=file) }}" style="width: 20em;height: 20em;margin: 1em;display: inline-block">
+    <ul style="list-style-type: none;">
+        {% for file in static_files %}
+        <li style="display: inline-block">
+            <img src="{{ url_for('static', filename=file) }}" style="width: 20em;height: 20em;margin: 1em;">
+        </li>
 
         {% if loop.index % 3 == 0 %}
             <br>
         {% endif %}
     {% endfor %}
+    </ul>
 
 {% endblock %}
