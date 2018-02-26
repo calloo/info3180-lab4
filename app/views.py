@@ -28,6 +28,8 @@ def get_uploaded_images(rootdir):
 
 @app.route('/files')
 def files():
+    if not session.get('logged_in'):
+        abort(401)
     return render_template('files.html', static_files=get_uploaded_images(app.config['UPLOADED_IMAGES_DEST']))
 
 @app.route('/')
