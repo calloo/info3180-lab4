@@ -17,6 +17,19 @@ from werkzeug.utils import secure_filename, CombinedMultiDict
 ###
 image_file = re.compile(r'^.+\.(?:jpg|jpeg|png|gif|jpe|svg|bmp)$')
 
+
+def get_uploaded_images(rootdir):
+    for root, dirs, files in os.walk(rootdir):
+        for file in files:
+            yield os.path.join(root[root.index("static")+7:], file).replace("\\", "/")
+        for directory in dirs:
+            yield get_uploaded_images(directory)
+
+
+@app.route('/files')
+def files():
+    return render_template('files.html', static_files=get_uploaded_images(app.config['UPLOADED_IMAGES_DEST']))
+
 @app.route('/')
 def home():
     """Render website's home page."""
