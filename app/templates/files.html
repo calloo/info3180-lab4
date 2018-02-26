@@ -2,8 +2,11 @@
 
 {% block main %}
     {% for file in static_files %}
-        <img src="{{ url_for('static', filename=file) }}">
+        <img src="{{ url_for('static', filename=file) }}" style="width: 30%;height: 15em;margin: 1em;display: inline-block">
 
+        {% if loop.index % 3 == 0 %}
+            <br>
+        {% endif %}
     {% endfor %}
 
 {% endblock %}
